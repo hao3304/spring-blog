@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<h3 th:text="${title}"></h3>
+<div>
+    <a href="/user/form.html" class="layui-btn layui-btn-primary" th:href="@{user/form}">创建用户</a>
+</div>
+    <table border="1" class="layui-table">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${userList.size()} eq 0">
+                <td colspan="4">没有数据</td>
+            </tr>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.id}"></td>
+                <td >
+                    <a th:href="${'user/form/' + user.id}" th:text="${user.name}"></a>
+                </td>
+                <td th:text="${user.email}"></td>
+                <td>
+                    <a th:href="${'user/' + user.id}">查看</a>
+                    <a th:href="${'user/delete/' + user.id}">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<div th:replace="fragments/footer :: copyright"></div>
+</body>
+</html>
